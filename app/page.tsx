@@ -1,6 +1,7 @@
 import {Slider} from "@/components/Slider";
 import {GlobalLayout} from "@/components/layouts/GlobalLayuot";
 import {CSSProperties} from "react";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -10,6 +11,7 @@ export default function Home() {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat"
   }
+
   return (
    <>
      <GlobalLayout >
@@ -18,16 +20,19 @@ export default function Home() {
                  <h1 className='sm:text-5xl text-4xl text-amber-600'>Survival</h1>
                  <p className='text-amber-50 sm:text-lg text-base max-w-[274px]'>What this means is that we exist to help protect our environment and do in
                      numbers of ways. You can save the planet by donation.</p>
-                 <button className='w-[160px] h-[60px] bg-amber-700 hover:bg-amber-600
+                 <Link
+                     href='/help'
+                     className='w-[160px] h-[60px] bg-amber-700 hover:bg-amber-600
+                     flex justify-center items-center
         rounded-md mb-6
-        text-amber-50 text-2xl cursor-pointer'>Donate</button>
+        text-amber-50 text-2xl cursor-pointer'>Donate</Link>
              </section>
          </div>
 
-         <section id='articles' className='min-h-[100vh] flex flex-col justify-center items-center bg-stone-300 py-28'>
+         <section id='animals' className='min-h-[100vh] flex flex-col justify-center items-center bg-stone-300 py-28'>
              <div className='w-[90vw] max-w-[1200px] flex flex-col items-center gap-10'>
-                 <h2 className='text-5xl text-neutral-700'>Latest articles</h2>
-                 <p className='text-2xl text-neutral-500'>Breaking news from the wild</p>
+                 <h2 className='text-5xl text-neutral-700'>Our pets</h2>
+                 <p className='text-2xl text-neutral-500'>Incredible animal rescue stories</p>
                  <Slider />
              </div>
          </section>

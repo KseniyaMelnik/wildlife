@@ -7,11 +7,11 @@ type GlobalLayoutProps = {
 }
 
 export const GlobalLayout = ({children}: GlobalLayoutProps) => {
-    return <>
+    return <div className='w-[100%] min-h-[100vh] flex flex-col items-center justify-between'>
         <Header />
-        <main className='w-[100%]'>
+        <main className='w-[100%] bg-green-950'>
             {children}
         </main>
         <Footer />
-    </>
+    </div>
 }

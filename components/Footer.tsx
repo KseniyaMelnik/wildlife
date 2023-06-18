@@ -31,7 +31,7 @@ export const Footer = () => {
     }
 
     return (
-        <footer className='h-[359px] flex items-center justify-center w-[100%]' style={backgroundStyle}>
+        <footer className='h-[359px] flex items-center justify-center w-[100%] self-end' style={backgroundStyle}>
             <div className='flex max-w-[1200px] w-[90vw] text-amber-50 justify-between items-center gap-10 flex-wrap'>
                 <Link href='/' className='flex items-center gap-[17px]'>
                     <Image src="/assets/icons/logo.svg" alt='wild' width={70} height={60}/>
@@ -39,7 +39,7 @@ export const Footer = () => {
                 </Link>
 
                 <ul className='flex list-none items-center justify-center gap-[42px] flex-wrap'>
-                    <li><a className='text-amber-50 decoration-0 text-2xl hover:text-amber-600' href="#articles">Articles</a>
+                    <li><a className='text-amber-50 decoration-0 text-2xl hover:text-amber-600' href="http://localhost:3000#animals">Animals</a>
                     </li>
                     <li><Link className='text-amber-50 decoration-0 text-2xl hover:text-amber-600' href="/about">About us</Link>
                     </li>

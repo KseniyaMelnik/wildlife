@@ -1,4 +1,6 @@
 import {Metadata} from "next";
+import {getPost} from "@/services/getPosts";
+import Link from "next/link";
 
 type PostProps = {
     params: {
@@ -6,26 +8,35 @@ type PostProps = {
     }
 }
 
-async function getData(id: string) {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-    return response.json()
-}
 export async function generateMetadata({params: {id}}: PostProps): Promise<Metadata> {
-    const post = await getData(id);
+    const post = await getPost(id);
 
     return {
-        title: post.title
+        title: post[0].title
     }
 }
 
 export default async function Post({params: {id}}: PostProps) {
 
-    const post = await getData(id);
+    const post = await getPost(id);
 
     return (
         <>
-            <h1>{post.title}</h1>
-            <p>{post.body}</p>
+                <section className='mt-[80px]
+                min-h-full bg-stone-300 flex justify-center items-center'>
+                    <div className="flex flex-col w-[90%] max-w-[1200px] justify-center items-center">
+                    <div className='
+                    w-[90%] max-w-[1200px]
+                    flex gap-10 items-center justify-center'>
+                        <Link href='/blog' className='w-8 h-8
+                        flex items-center justify-center
+                        border-amber-700 border-2 rounded-3xl
+                        hover:bg-amber-700
+                        '>&#129044;</Link>
+                        <h1 className='text-3xl m-3'>{post[0].title}</h1></div>
+                    <p>{post[0].body}</p>
+                    </div>
+                </section>
         </>
     )
 }
