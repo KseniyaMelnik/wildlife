@@ -1,6 +1,7 @@
 import {Metadata} from "next";
 import {getAnimal} from "@/services/getAnimals";
 import {GlobalLayout} from "@/components/layouts/GlobalLayuot";
+import {SponsorButton} from "@/components/SponsorButton";
 
 type PostProps = {
     params: {
@@ -20,6 +21,7 @@ export default async function Animal({params: {id}}: PostProps) {
 
     const animal = await getAnimal(id);
 
+
     return (
         <GlobalLayout>
             <section className='mt-[80px]
@@ -30,8 +32,7 @@ export default async function Animal({params: {id}}: PostProps) {
                         <h1 className='text-3xl'>{animal.title}</h1>
                     <img src={animal.image} alt={animal.description} />
                     <p className='text-lg text-neutral-700'>{animal.body}</p>
-                        <button className='self-end bg-amber-700 text-lg font-semibold
-                        text-amber-50 py-2 px-4 rounded'> Become a sponsor </button>
+                        <SponsorButton animal={animal}/>
                 </div>
             </section>
         </GlobalLayout>

@@ -4,14 +4,28 @@ import Link from "next/link";
 import {signOut, useSession} from "next-auth/react";
 import {usePathname} from "next/navigation";
 
+type NavLink = {
+    label: string,
+    href: string
+}
+
 type NavProps = {
     openMenu: boolean,
-    setOpenMenu: (openMenu: boolean) => void
+    setOpenMenu: (openMenu: boolean) => void,
 }
 
 export const Nav = ({openMenu, setOpenMenu}: NavProps) => {
 
     const session = useSession();
+    const pathName = usePathname();
+
+    const navItems: NavLink[] = [
+        {label: "Blog", href: "/blog"},
+        {label: "Contacts", href: "/contacts"},
+    ]
+
+    session?.data ? navItems.push({label: "Profile", href: "/profile"})
+        : navItems
 
     const toggleMenu = () => {
         setOpenMenu(!openMenu)
@@ -20,11 +34,19 @@ export const Nav = ({openMenu, setOpenMenu}: NavProps) => {
         <nav>
             <ul className='items-center justify-center gap-x-8 lg:gap-x-16
                     text-xl lg:text-2xl text-white sm:flex hidden'>
-                <li><Link href="/blog" className='hover:text-amber-600'>Blog</Link></li>
-                <li><Link href="/contacts" className='hover:text-amber-600'>Contacts</Link>
-                </li>
 
-                {session?.data && <li><Link href='/profile'> Profile</Link></li>}
+                    {navItems.map((link)=> {
+                       const isActive = pathName === link.href
+                        return (
+                            <li key={link.label}>
+                                <Link href={link.href}
+                                      className={isActive ? "text-amber-600" : "text-white hover:text-amber-600"}
+                                > {link.label}
+                                </Link>
+                            </li>
+                        )
+                    })}
+
                 {session?.data ? <li><Link href='#'
                                            onClick={()=> signOut({
                                                callbackUrl: '/'

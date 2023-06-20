@@ -1,19 +1,21 @@
-import type {AuthOptions, User} from 'next-auth'
-import GoggleProvider, {GoogleProfile} from 'next-auth/providers/google'
+import type {AuthOptions} from 'next-auth'
+import GoggleProvider from 'next-auth/providers/google'
 import Credentials, {CredentialsConfig} from 'next-auth/providers/credentials'
 import {users} from "@/data/users";
-import {OAuthConfig, ProviderType} from "next-auth/providers";
+import {OAuthConfig} from "next-auth/providers";
+import User from '@/models/user';
+import {connectToDB} from "@/utils/database";
 
-export const authConfig: { pages: { signIn: string };
-    providers: (OAuthConfig<GoogleProfile> |
-        CredentialsConfig<{ password: { label: string; type: string; required: boolean };
-        email: { label: string; type: string; required: boolean } }>)[] } = {
+export const authConfig: AuthOptions = {
     providers: [
         GoggleProvider({
             clientId: process.env.GOOGLE_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         }),
-        Credentials({
+      /*  Credentials({
+            id: "credentials",
+            name: "Credentials",
+            type: "credentials",
             credentials: {
                 email: {label: 'email', type: 'email', required: true},
                 password: {label: 'password', type: 'password', required: true}
@@ -30,8 +32,41 @@ export const authConfig: { pages: { signIn: string };
 
                 return null
             }
-        })
+        })*/
     ],
+    callbacks: {
+        async session({ session }) {
+            // store the user id from MongoDB to session
+            if (session.user) {
+                const sessionUser = await User.findOne({email: session.user.email});
+                session.user.id = sessionUser._id.toString();
+            }
+
+            return session;
+        },
+        async signIn({ account, profile, user, credentials }) {
+            try {
+                await connectToDB();
+
+                // check if user already exists
+                const userExists = await User.findOne({ email: profile.email });
+
+                // if not, create a new document and save user in MongoDB
+                if (!userExists) {
+                    await User.create({
+                        email: profile.email,
+                        username: profile.name.replace(" ", "").toLowerCase(),
+                        image: profile.picture,
+                    });
+                }
+
+                return true
+            } catch (error) {
+                console.log("Error checking if user exists: ", error.message);
+                return false
+            }
+        },
+    },
     pages: {
         signIn: '/signin'
     }

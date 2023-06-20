@@ -12,3 +12,8 @@ export const getAnimal = async (id: string) => {
     });
     return response.json()
 }
+
+export const getUsersAnimals = async (id: string) => {
+    const response = await fetch(`http://localhost:3000/api/users/${id}/animals`)
+    return response.json();
+}

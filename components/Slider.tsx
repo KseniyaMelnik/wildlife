@@ -53,7 +53,7 @@ const Card: FC<CardProps> = ({id, image, description, title}) => {
 export const Slider = () => {
 
     const getSlidesToShow: () => 1 | 2 | 3 = () => {
-        if (window) {
+        if (typeof window !== 'undefined') {
             if (window.innerWidth >= 1024) {
                 return 3;
             } else if (window.innerWidth >= 768) {
@@ -86,13 +86,12 @@ export const Slider = () => {
     }, []);
 
     const handleNext = () => {
-        setCurrentIndex(currentIndex === cards.length - 3 ? 0 : currentIndex + 1);
+        setCurrentIndex(currentIndex === cards.length - slidesToShow ? 0 : currentIndex + 1);
     };
 
     const handlePrev = () => {
-        setCurrentIndex(currentIndex === 0 ? cards.length - 3 : currentIndex - 1);
+        setCurrentIndex(currentIndex === 0 ? cards.length - slidesToShow : currentIndex - 1);
     };
-
 
     return (
         <>
