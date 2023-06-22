@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {getAnimal} from "@/services/getAnimals";
 import {GlobalLayout} from "@/components/layouts/GlobalLayuot";
 import {SponsorButton} from "@/components/SponsorButton";
+import {IAnimal} from "@/types";
 
 type PostProps = {
     params: {

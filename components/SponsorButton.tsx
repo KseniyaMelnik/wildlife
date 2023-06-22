@@ -1,48 +1,79 @@
 "use client"
 
 import {useSession} from "next-auth/react";
+import {AddSponsoredAnimal} from "@/services/addSponsoredAnimal";
+import {IAnimal} from "@/types";
+import {useEffect, useState} from "react";
+import {getUsersAnimals} from "@/services/getAnimals";
+import {removeUsersAnimal} from "@/services/removeUsersAnimal";
+import {TracksLoader} from "@/components/loaders/TracksLoader";
 
-type SponsorButtonProps = {
-    animal: {
-        title: string,
-        description: string,
-        body: string,
-        image: string,
-        id: string
-    }
-}
 
-export const SponsorButton = ({animal}: SponsorButtonProps) => {
+export const SponsorButton = ({animal}: { animal: IAnimal }) => {
 
-    const { data: session } = useSession();
+    const {data: session, status} = useSession();
+    const user = session?.user as { email: string, name: string, image: string, id: string }
 
-     const handleClick = async () => {
+    const [loading, setLoading] = useState(false)
+    const [sponsored, setSponsored] = useState(true)
 
+    useEffect(() => {
+        if (user) {
+            setLoading(true)
+            getUsersAnimals(user.id)
+                .then(
+                    animals => {
+                        const isSponsored = animals.find((a: IAnimal) => a.id === animal.id)
+                        setSponsored(!!isSponsored)
+                    }
+                ).finally(() => {
+                    setLoading(false)
+                }
+            )
+        }
+
+    }, [])
+
+
+    const handleBecomeSponsor = async () => {
+        setLoading(true)
         try {
-            const response = await fetch(`http://localhost:3000/api/users/${session?.user.id}/animals`, {
-                method: "POST",
-                body: JSON.stringify({
-                    title: animal.title,
-                    description: animal.description,
-                    body: animal.body,
-                    image: animal.image,
-                    id: animal.id
-                })
-            });
-
-            if (response.ok) {
-                console.log('Animal added');
-            } else {
-                console.error('Error adding animal');
-            }
+            await AddSponsoredAnimal(user.id, animal)
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false)
+            setSponsored(true)
         }
     };
 
-    return <button
-        className='self-end bg-amber-700 text-lg font-semibold
+    const handleCancelSponsorship = async () => {
+        setLoading(true)
+        try {
+            await removeUsersAnimal(user.id, animal.id)
+            setSponsored(false)
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return <>
+        {loading ? <TracksLoader />
+            : <div className='self-end'>
+                {status === "authenticated" &&
+                sponsored ? <button
+                    className='text-lg text-neutral-700 text-bold p-2 border-2 border-amber-700 rounded'
+                        onClick={handleCancelSponsorship}
+                    > Сancel the sponsorship request </button>
+                    : status === "authenticated" && <button
+                    className='bg-amber-700 text-lg font-semibold
                         text-amber-50 py-2 px-4 rounded'
-        onClick={handleClick}
-    > Become a sponsor </button>
+                    onClick={handleBecomeSponsor}
+                > Become a sponsor </button>
+                }
+            </div>}
+    </>
 }

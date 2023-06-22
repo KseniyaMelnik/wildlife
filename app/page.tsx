@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home() {
 
   const backgroundStyle: CSSProperties = {
-    backgroundImage: "url('assets/images/hero-background.jpg')",
+    backgroundImage: "url('/assets/images/hero-background.jpg')",
     backgroundPosition: "center center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat"

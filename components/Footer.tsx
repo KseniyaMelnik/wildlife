@@ -4,29 +4,29 @@ import Link from "next/link";
 export const Footer = () => {
 
     const backgroundStyle = {
-        backgroundImage: "url('assets/images/Footer-bg.jpg')",
+        backgroundImage: "url('/assets/images/Footer-bg.jpg')",
         backgroundPosition: "center center",
         backgroundSize: "cover",
     }
 
     const facebook = {
-        backgroundImage: "url('assets/icons/socials/facebook.svg')",
+        backgroundImage: "url('/assets/icons/socials/facebook.svg')",
         backgroundPosition: "center center",
 
     }
 
     const instagram = {
-        backgroundImage: "url('assets/icons/socials/instagram.svg')",
+        backgroundImage: "url('/assets/icons/socials/instagram.svg')",
         backgroundPosition: "center center",
     }
 
     const pinterest = {
-        backgroundImage: "url('assets/icons/socials/pinterest.svg')",
+        backgroundImage: "url('/assets/icons/socials/pinterest.svg')",
         backgroundPosition: "center center",
     }
 
     const telegram = {
-        backgroundImage: "url('assets/icons/socials/telegram.svg')",
+        backgroundImage: "url('/assets/icons/socials/telegram.svg')",
         backgroundPosition: "center center",
     }
 

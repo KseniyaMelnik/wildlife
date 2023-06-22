@@ -4,7 +4,6 @@ import {Metadata} from "next";
 import {useEffect, useState} from "react";
 import {getAllPosts} from "@/services/getPosts";
 import {Posts} from "@/components/Posts";
-import {GlobalLayout} from "@/components/layouts/GlobalLayuot";
 import DeerLoader from "@/components/loaders/DeerLoader";
 
 
@@ -26,7 +25,7 @@ export default function Blog() {
             <section className='mt-[80px] min-h-full bg-stone-300 flex flex-col justify-center items-center'>
                 <h1 className='text-3xl m-3'> Articles </h1>
                 {loading ? (
-                    <DeerLoader />
+                       <DeerLoader />
                 ) : (
                     <Posts posts={posts} />
                 )}

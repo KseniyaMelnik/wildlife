@@ -24,12 +24,12 @@ export default async function Post({params: {id}}: PostProps) {
         <>
                 <section className='mt-[80px]
                 min-h-full bg-stone-300 flex justify-center items-center'>
-                    <div className="flex flex-col w-[90%] max-w-[1200px] justify-center items-center">
+                    <div className="flex flex-col w-[90%] max-w-[1200px] justify-center items-center py-10">
                     <div className='
                     w-[90%] max-w-[1200px]
                     flex gap-10 items-center justify-center'>
                         <Link href='/blog' className='w-8 h-8
-                        flex items-center justify-center
+                        flex flex-shrink-0 items-center justify-center
                         border-amber-700 border-2 rounded-3xl
                         hover:bg-amber-700
                         '>&#129044;</Link>

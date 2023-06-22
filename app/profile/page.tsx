@@ -8,6 +8,7 @@ import {useSession} from "next-auth/react";
 import {useState, useEffect} from "react";
 import DeerLoader from "@/components/loaders/DeerLoader";
 import {IAnimal} from "@/types";
+import {TracksLoader} from "@/components/loaders/TracksLoader";
 
 export default function Profile() {
 
@@ -39,7 +40,9 @@ export default function Profile() {
                             className='rounded-full'
                             src={user.image} alt={''}/>}
                     </div>
-                    {animals.length > 0 ?
+
+                    {isLoading && <TracksLoader /> }
+                    {!isLoading && animals.length > 0 ?
 
                         <>
                             <p className='text-base font-semibold text-neutral-700'>
@@ -57,8 +60,7 @@ export default function Profile() {
                             </p>
                         </>
 
-                        :
-                        <div className='flex flex-col gap-2.5'>
+                        : !isLoading && <div className='flex flex-col gap-2.5'>
                             <p className='text-2xl text-center text-neutral-700'>
                                 You don&apos;t have sponsorship applications yet
                             </p>
