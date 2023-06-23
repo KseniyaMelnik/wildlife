@@ -4,7 +4,6 @@ const AdminPage = () => {
 
     return (
         <>
-            admin
         </>
     );
 };
