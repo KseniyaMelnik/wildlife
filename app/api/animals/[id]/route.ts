@@ -14,3 +14,16 @@ export async function GET (req: Request, {params}: {params: {id: string}}) {
         return new Response("Internal Server Error", { status: 500 });
     }
 }
+
+export async function DELETE (req: Request, {params}: {params: {id: string}}) {
+    try {
+        await connectToDB();
+
+        await Animal.findOneAndRemove({id: params.id});
+        const animals = await Animal.find({});
+
+        return new Response(JSON.stringify(animals), { status: 200 });
+    } catch (error) {
+        return new Response("Error deleting animal", { status: 500 });
+    }
+}

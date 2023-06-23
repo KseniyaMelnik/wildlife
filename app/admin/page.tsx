@@ -1,8 +1,4 @@
-"use client";
-
-import {CreateAnimalForm} from "@/components/CreateAnimalForm";
-import {Accordion} from "@/components/Accordion";
-import {CreatePostForm} from "@/components/CreatePostForm";
+"use client"
 
 const AdminPage = () => {
 

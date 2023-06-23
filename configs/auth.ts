@@ -23,7 +23,7 @@ export const authConfig: AuthOptions = {
             async authorize(credentials) {
                 if(!credentials || !credentials.email || !credentials.password) return null
 
-                const currentUser = users.find(user => user.email === credentials.email)
+                const currentUser = sponsors.find(user => user.email === credentials.email)
 
                 if (currentUser && currentUser.password === credentials.password) {
                     const {password, ...userWithoutPassword} = currentUser;

@@ -11,3 +11,11 @@ export interface IPost {
     title: string,
     body: string
 }
+
+export interface IUser {
+    _id: string,
+    email: string,
+    username: string,
+    image: string,
+    animals: IAnimal[]
+}

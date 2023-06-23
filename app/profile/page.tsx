@@ -20,10 +20,12 @@ export default function Profile() {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        setIsLoading(true)
-        getUsersAnimals(user.id)
-            .then(setAnimals)
-            .finally(() => setIsLoading(false))
+        if (user) {
+            setIsLoading(true)
+            getUsersAnimals(user.id)
+                .then(setAnimals)
+                .finally(() => setIsLoading(false))
+        }
     }, [user]);
 
 

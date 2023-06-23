@@ -22,6 +22,11 @@ export default function AdminLayout({children}: {
                          width={30} height={30}
                     />
                     Create content </Link>
+                <Link href='/admin/sponsors' className='flex gap-2'>
+                    <img src="/assets/icons/users.svg" alt=""
+                         width={30} height={30}
+                    />
+                    Sponsors </Link>
                 <Link href='/' className='flex gap-2'>
                     <img src="/assets/icons/logo.svg" alt=""
                          width={30} height={30}

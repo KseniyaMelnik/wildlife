@@ -4,36 +4,25 @@ import {useEffect, useState} from "react";
 import DeerLoader from "@/components/loaders/DeerLoader";
 import {getAllAnimals} from "@/services/getAnimals";
 import {IAnimal} from "@/types";
+import {removeAnimal} from "@/services/removeAnimal";
 
 const AnimalsPage = () => {
     const [animals, setAnimals] = useState<IAnimal[]>([])
     const [loading, setLoading] = useState(true)
-    //const [openPost, setOpenPost] = useState(false)
-    //const [currentPost, setCurrentPost] = useState({
-  /*      id: "",
-        title: "",
-        body: ""
-    })
-
-    const onChangePost = ({id, title, body}) => {
-        setCurrentPost({id, title, body})
-        setOpenPost(true)
-
-    }
-
-    const deletePost = (id) => {
-        setLoading(true)
-        removePost(id)
-            .then(setPosts)
-            .catch((e)=> console.log(e))
-            .finally(()=>setLoading(false))
-    }*/
 
     useEffect(()=> {
         getAllAnimals()
             .then(setAnimals)
             .finally(()=>setLoading(false))
     }, [])
+
+    const deleteAnimal = (id: string) => {
+        setLoading(true)
+        removeAnimal(id)
+            .then(setAnimals)
+            .catch((e)=> console.log(e))
+            .finally(()=>setLoading(false))
+    }
 
     return (
         <section className='w-full p-10 bg-white'>
@@ -67,7 +56,7 @@ const AnimalsPage = () => {
                                     <button onClick={()=> {}}>
                                         <img src="/assets/icons/pencil.svg" alt="change" width={20} height={20}/>
                                     </button>
-                                    <button onClick={()=>{}}>
+                                    <button onClick={()=>{deleteAnimal(animal.id)}}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" version="1.1" viewBox="0 0 32 32">
                                             <g transform="scale(2)">
                                                 <circle fill="#B45309" cx="8" cy="8" r="7"/>
@@ -82,13 +71,6 @@ const AnimalsPage = () => {
                     </div>
                 </>
             )}
-
-           {/* {openPost && <PostModal id={currentPost.id}
-                                    title={currentPost.title}
-                                    body={currentPost.body}
-                                    setOpenModal={setOpenPost}
-                                    setPosts={setPosts}
-            />}*/}
 
         </section>
     );
