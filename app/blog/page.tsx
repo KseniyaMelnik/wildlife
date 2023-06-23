@@ -1,15 +1,10 @@
 'use client';
 
-import {Metadata} from "next";
 import {useEffect, useState} from "react";
 import {getAllPosts} from "@/services/getPosts";
 import {Posts} from "@/components/Posts";
 import DeerLoader from "@/components/loaders/DeerLoader";
 
-
-const metadata: Metadata = {
-    title: 'Blog | Wildlife',
-}
 
 export default function Blog() {
     const [posts, setPosts] = useState([])
