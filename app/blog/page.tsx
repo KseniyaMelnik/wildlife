@@ -7,7 +7,7 @@ import {Posts} from "@/components/Posts";
 import DeerLoader from "@/components/loaders/DeerLoader";
 
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
     title: 'Blog | Wildlife',
 }
 
