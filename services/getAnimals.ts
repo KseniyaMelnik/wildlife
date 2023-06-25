@@ -5,7 +5,7 @@ export const getAllAnimals = async () => {
 }
 
 export const getAnimal = async (id: string) => {
-    const response = await fetch(`/api/animals/${id}`, {
+    const response = await fetch(`https://wildlife-gamma.vercel.app/api/animals/${id}`, {
         next: {
             revalidate: 60
         }
