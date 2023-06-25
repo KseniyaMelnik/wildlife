@@ -12,7 +12,7 @@ import {TracksLoader} from "@/components/loaders/TracksLoader";
 export const SponsorButton = ({animal}: { animal: IAnimal }) => {
 
     const {data: session, status} = useSession();
-    const user = session?.user as { email: string, name: string, image: string, id: string }
+    const user = session?.user
 
     const [loading, setLoading] = useState(false)
     const [sponsored, setSponsored] = useState(true)
@@ -38,7 +38,7 @@ export const SponsorButton = ({animal}: { animal: IAnimal }) => {
     const handleBecomeSponsor = async () => {
         setLoading(true)
         try {
-            await AddSponsoredAnimal(user.id, animal)
+            await AddSponsoredAnimal(user!.id, animal)
         } catch (error) {
             console.error(error);
         } finally {
@@ -50,7 +50,7 @@ export const SponsorButton = ({animal}: { animal: IAnimal }) => {
     const handleCancelSponsorship = async () => {
         setLoading(true)
         try {
-            await removeUsersAnimal(user.id, animal.id)
+            await removeUsersAnimal(user!.id, animal.id)
             setSponsored(false)
 
         } catch (error) {

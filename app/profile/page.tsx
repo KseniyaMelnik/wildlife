@@ -14,7 +14,7 @@ export default function Profile() {
 
     const {data: session, status} = useSession();
 
-    const user = session?.user as {name: string, email: string, image: string, id: string}
+    const user = session?.user
 
     const [animals, setAnimals] = useState<IAnimal[]>([])
     const [isLoading, setIsLoading] = useState(false)
@@ -37,8 +37,8 @@ export default function Profile() {
 
                 : <>
                     <div className='flex gap-10 items-center'>
-                        <h1 className='text-2xl text-neutral-600'>Hi, {user.name}</h1>
-                        {user.image && <img
+                        <h1 className='text-2xl text-neutral-600'>Hi, {user?.name}</h1>
+                        {user?.image && <img
                             className='rounded-full'
                             src={user.image} alt={''}/>}
                     </div>
@@ -52,7 +52,7 @@ export default function Profile() {
                             </p>
                             <div className="flex gap-4 w-[90%] max-w-[1200px] flex-wrap justify-center items-center">
                                 {animals.map(animal => (
-                                    <AnimalCardProfile animal={animal} userId={user.id} key={animal.id}
+                                    <AnimalCardProfile animal={animal} userId={user!.id} key={animal.id}
                                                        setAnimals={setAnimals}
                                     />
                                 ))}

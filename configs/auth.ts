@@ -36,37 +36,28 @@ export const authConfig: AuthOptions = {
     ],
     callbacks: {
         async session({ session }) {
-            // store the user id from MongoDB to session
             if (session.user) {
                 const sessionUser = await User.findOne({email: session.user.email});
-                //@ts-ignore
                 session.user.id = sessionUser._id.toString();
             }
-
             return session;
         },
-        async signIn({ account, profile, user, credentials }) {
+        async signIn({profile, user, credentials }) {
             try {
                 await connectToDB();
-
-                // check if user already exists
-                //@ts-ignore
                 const userExists = await User.findOne({ email: profile!.email });
 
-                // if not, create a new document and save user in MongoDB
                 if (!userExists) {
                     await User.create({
                         email: profile!.email,
                         username: profile!.name?.replace(" ", "").toLowerCase(),
-                        //@ts-ignore
                         image: profile!.picture,
                     });
                 }
 
                 return true
-            } catch (error) {
-                //@ts-ignore
-                console.log("Error checking if user exists: ", error.message);
+            } catch (error: any) {
+                console.log("Error checking if user exists: ",  error.message);
                 return false
             }
         },
