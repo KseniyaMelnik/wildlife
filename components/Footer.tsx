@@ -39,7 +39,7 @@ export const Footer = () => {
                 </Link>
 
                 <ul className='flex list-none items-center justify-center gap-[42px] flex-wrap'>
-                    <li><a className='text-amber-50 decoration-0 text-2xl hover:text-amber-600' href="http://localhost:3000#animals">Animals</a>
+                    <li><a className='text-amber-50 decoration-0 text-2xl hover:text-amber-600' href="/#animals">Animals</a>
                     </li>
                     <li><Link className='text-amber-50 decoration-0 text-2xl hover:text-amber-600' href="/about">About us</Link>
                     </li>

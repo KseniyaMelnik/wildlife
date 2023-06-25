@@ -1,7 +1,7 @@
 import {IAnimal} from "@/types";
 
 export const AddSponsoredAnimal = async (userID: string, animal: IAnimal) => {
-    const response = await fetch(`http://localhost:3000/api/users/${userID}/animals`, {
+    const response = await fetch(`/api/users/${userID}/animals`, {
         method: "POST",
         body: JSON.stringify({
             title: animal.title,

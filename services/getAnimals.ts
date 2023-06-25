@@ -5,7 +5,7 @@ export const getAllAnimals = async () => {
 }
 
 export const getAnimal = async (id: string) => {
-    const response = await fetch(`http://localhost:3000/api/animals/${id}`, {
+    const response = await fetch(`/api/animals/${id}`, {
         next: {
             revalidate: 60
         }
@@ -14,6 +14,6 @@ export const getAnimal = async (id: string) => {
 }
 
 export const getUsersAnimals = async (id: string) => {
-    const response = await fetch(`http://localhost:3000/api/users/${id}/animals`)
+    const response = await fetch(`/api/users/${id}/animals`)
     return response.json();
 }
