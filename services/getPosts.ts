@@ -1,3 +1,5 @@
+const URL = process.env.BASE_URL
+
 export const getAllPosts = async () => {
     const response = await fetch('/api/posts');
     if (!response.ok) throw new Error ('Unable to fetch posts.')
@@ -13,7 +15,7 @@ export const getPostsBySearch = async (search: string) => {
 }
 
 export const getPost = async (id: string) => {
-    const response = await fetch( `https://wildlife-gamma.vercel.app/api/posts/${id}`);
+    const response = await fetch( `${URL}/api/posts/${id}`);
     if (!response.ok) throw new Error ('Post not found')
     return response.json();
 }

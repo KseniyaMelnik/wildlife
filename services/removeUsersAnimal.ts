@@ -1,5 +1,7 @@
+const URL = process.env.BASE_URL
+
 export const removeUsersAnimal = async (userID: string, animalId: string) => {
-    const response = await fetch(`/api/users/${userID}/animals`, {
+    const response = await fetch(`${URL}/api/users/${userID}/animals`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json'
