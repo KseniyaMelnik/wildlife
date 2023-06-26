@@ -15,11 +15,11 @@ export async function GET (req: Request) {
 
     const posts = await Post.find({})
 
-    return new Response(JSON.stringify(posts), { status: 200,
-      headers: {
+    return new Response(JSON.stringify(posts), { status: 200
+     /* headers: {
         'content-type': 'application/json',
         'cache-control': 'no-cache, no-store, max-age=0, must-revalidate',
-      }
+      }*/
     })
 } catch (error) {
     return new Response("Failed to fetch all posts", { status: 500 })
