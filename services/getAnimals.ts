@@ -2,10 +2,7 @@ const URL = process.env.BASE_URL
 
 export const getAllAnimals = async () => {
     const response = await fetch('/api/animals',{
-            cache: "no-store",
-            next: {
-                revalidate: 10
-            }
+            cache: "no-store"
         }
         );
     if (!response.ok) throw new Error ('Unable to fetch animals.')
@@ -13,11 +10,7 @@ export const getAllAnimals = async () => {
 }
 
 export const getAnimal = async (id: string) => {
-    const response = await fetch(`${URL}/api/animals/${id}`, {
-        next: {
-            revalidate: 60
-        }
-    });
+    const response = await fetch(`${URL}/api/animals/${id}`);
     return response.json()
 }
 
