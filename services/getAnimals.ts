@@ -2,6 +2,7 @@ const URL = process.env.BASE_URL
 
 export const getAllAnimals = async () => {
     const response = await fetch('/api/animals',{
+            cache: "no-store",
             next: {
                 revalidate: 10
             }
