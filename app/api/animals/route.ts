@@ -1,10 +1,6 @@
 import {connectToDB} from "@/utils/database";
 import Animal from "@/models/animal";
 
-export const config = {
-    api: {
-    },
-}
 export async function GET (req: Request) {
 
     try {
