@@ -1,10 +1,7 @@
 const URL = process.env.BASE_URL
 
 export const getAllAnimals = async () => {
-    const response = await fetch('/api/animals',{
-            cache: "no-store"
-        }
-        );
+    const response = await fetch('/api/animals');
     if (!response.ok) throw new Error ('Unable to fetch animals.')
     return response.json();
 }
