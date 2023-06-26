@@ -1,4 +1,3 @@
-import {NextResponse} from "next/server";
 import {connectToDB} from "@/utils/database";
 import Post from "@/models/post";
 
@@ -16,13 +15,12 @@ export async function GET (req: Request) {
 
     const posts = await Post.find({})
 
-    const response = new NextResponse(JSON.stringify(posts), { status: 200 })
-
-    response.headers.set(
-            'Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate'
-    )
-
-    return response
+    return new Response(JSON.stringify(posts), { status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': 'no-cache, no-store, max-age=0, must-revalidate',
+      }
+    })
 } catch (error) {
     return new Response("Failed to fetch all posts", { status: 500 })
 }
