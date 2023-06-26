@@ -14,7 +14,7 @@ export async function GET (req: Request) {
   try {
     await connectToDB()
 
-    const posts = await Post.find({}).populate('id')
+    const posts = await Post.find({})
 
     return new Response(JSON.stringify(posts), { status: 200 })
 } catch (error) {

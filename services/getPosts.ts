@@ -1,7 +1,11 @@
 const URL = process.env.BASE_URL
 
 export const getAllPosts = async () => {
-    const response = await fetch('/api/posts');
+    const response = await fetch('/api/posts', {
+        next: {
+            revalidate: 0
+        }
+    });
     if (!response.ok) throw new Error ('Unable to fetch posts.')
     return response.json();
 }
