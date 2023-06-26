@@ -1,19 +1,21 @@
 "use client";
 
-import {FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 
-
 export const CreateAnimalForm = () => {
-    const CLOUD_NAME = 'di3b9nifb'
-    const UPLOAD_PRESET = 'wildlife'
 
     const router = useRouter();
 
     const [submitting, setIsSubmitting] = useState(false);
-    const [animal, setAnimal] = useState({title: "", body: "", description: ""});
-    const [itemImage, setItemImage] = useState<string | Blob>("");
+    const [animal, setAnimal] = useState({
+        id: '',
+        title: '',
+        description: '',
+        body: '',
+        image: '',
+    });
 
 
     const createAnimal = async (e: FormEvent<HTMLFormElement>) => {
@@ -21,7 +23,7 @@ export const CreateAnimalForm = () => {
         setIsSubmitting(true);
 
         try {
-            const imageUrl = await uploadImage()
+           // const imageUrl = await uploadImage()
 
             const response = await fetch("/api/animals/new", {
                 method: "POST",
@@ -29,7 +31,7 @@ export const CreateAnimalForm = () => {
                     title: animal.title,
                     description: animal.description,
                     body: animal.body,
-                    image: imageUrl
+                    image: animal.image
                 })
             });
 
@@ -44,28 +46,27 @@ export const CreateAnimalForm = () => {
         }
     };
 
-    const uploadImage = async () => {
-        if (!itemImage) return
+    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
+        setAnimal((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
-        const formData = new FormData()
+    const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files![0];
 
-        formData.append("file", itemImage)
-        formData.append("upload_preset", UPLOAD_PRESET)
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            setAnimal((prevState) => ({
+                ...prevState,
+                image: reader.result as string,
+            }));
+        };
+    };
 
-        try {
-            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-                method: "POST",
-                body: formData
-            })
-
-            const data = await res.json()
-
-            return data['secure_url']
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     return (
         <form
@@ -81,7 +82,8 @@ export const CreateAnimalForm = () => {
 
                 <textarea
                     value={animal.title}
-                    onChange={(e) => setAnimal({...animal, title: e.target.value})}
+                    name="title"
+                    onChange={handleInputChange}
                     placeholder='Write your animal name here'
                     required
                     className='rounded p-2.5 border-amber-500 border-2
@@ -96,7 +98,8 @@ export const CreateAnimalForm = () => {
 
                 <textarea
                     value={animal.description}
-                    onChange={(e) => setAnimal({...animal, description: e.target.value})}
+                    name="description"
+                    onChange={handleInputChange}
                     placeholder='Write your animal description here'
                     required
                     className='rounded p-2.5 border-amber-500 border-2
@@ -110,7 +113,8 @@ export const CreateAnimalForm = () => {
       </span>
                 <textarea
                     value={animal.body}
-                    onChange={(e) => setAnimal({...animal, body: e.target.value})}
+                    name="body"
+                    onChange={handleInputChange}
                     placeholder='Write your history here'
                     rows={15}
                     required
@@ -125,12 +129,12 @@ export const CreateAnimalForm = () => {
            Your animal image
       </span>
                 <input
-
+                    name="image"
                     type="file"
                     id="fileImg"
                     multiple
                     accept="image/png, image/jpeg image/jpg"
-                    onChange={(event) => setItemImage(event.target.files![0])}
+                    onChange={handleImageChange}
                     required
                     className="block w-full text-sm text-slate-500
                         file:mr-4 file:py-2 file:px-4

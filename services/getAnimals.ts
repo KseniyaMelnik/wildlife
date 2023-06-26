@@ -16,6 +16,6 @@ export const getAnimal = async (id: string) => {
 }
 
 export const getUsersAnimals = async (id: string) => {
-    const response = await fetch(`${URL}/api/users/${id}/animals`)
+    const response = await fetch(`/api/users/${id}/animals`)
     return response.json();
 }
