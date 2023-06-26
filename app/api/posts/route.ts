@@ -16,7 +16,13 @@ export async function GET (req: Request) {
 
     const posts = await Post.find({})
 
-    return new Response(JSON.stringify(posts), { status: 200 })
+    const response = new NextResponse(JSON.stringify(posts), { status: 200 })
+
+    response.headers.set(
+            'Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate'
+    )
+
+    return response
 } catch (error) {
     return new Response("Failed to fetch all posts", { status: 500 })
 }
