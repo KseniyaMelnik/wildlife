@@ -1,14 +1,21 @@
+import axios from "axios";
+
 const URL = process.env.BASE_URL
 
 export const getAllPosts = async () => {
-    const response = await fetch(`${URL}/api/posts`, {
-       next: {
-           revalidate: 0
-       }
-    });
-    if (!response.ok) throw new Error ('Unable to fetch posts.')
-    return response.json();
+    const response = await axios.get(`${URL}/api/posts`)
+
+    if (response.status !== 200) throw new Error ('Unable to fetch posts.')
+    return response.data;
 }
+
+export const getPosts = async () => {
+    const response = await axios.get(`/api/posts`)
+
+    if (response.status !== 200) throw new Error ('Unable to fetch posts.')
+    return response.data;
+}
+
 
 export const getPostsBySearch = async (search: string) => {
     const response = await fetch (

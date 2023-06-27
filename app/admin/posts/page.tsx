@@ -1,7 +1,7 @@
 "use client"
 
 import {useEffect, useState} from "react";
-import {getAllPosts} from "@/services/getPosts";
+import {getAllPosts, getPosts} from "@/services/getPosts";
 import {removePost} from "@/services/removePost";
 import {PostModal} from "@/components/PostModal";
 import DeerLoader from "@/components/loaders/DeerLoader";
@@ -33,7 +33,7 @@ const PostsPage = () => {
     }
 
     useEffect(()=> {
-        getAllPosts()
+        getPosts()
             .then(setPosts)
             .finally(()=>setLoading(false))
     }, [])
