@@ -5,6 +5,7 @@ export async function GET (req: Request) {
 
     try {
         await connectToDB()
+        console.log(req.url)
 
         const animals = await Animal.find({})
 

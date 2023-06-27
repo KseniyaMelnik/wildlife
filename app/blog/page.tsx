@@ -1,19 +1,25 @@
-import {getAllPosts} from "@/services/getPosts";
+"use client"
+import {getPosts} from "@/services/getPosts";
 import {Posts} from "@/components/Posts";
 import DeerLoader from "@/components/loaders/DeerLoader";
 import Link from "next/link";
 import {IPost} from "@/types";
+import {InferGetServerSidePropsType} from "next";
+import { useEffect, useState } from "react";
+
+
+
 
 export default async function Blog() {
-    const posts = await getAllPosts()
-    //const [posts, setPosts] = useState([])
-   // const [loading, setLoading] = useState(true)
 
-    /*useEffect(()=> {
-      getAllPosts()
+    const [posts, setPosts] = useState([])
+   const [loading, setLoading] = useState(true)
+
+    useEffect(()=> {
+      getPosts()
           .then(setPosts)
           .finally(()=>setLoading(false))
-    }, [])*/
+    }, [])
 
     return (
             <section className='mt-[80px] min-h-full bg-stone-300 flex flex-col justify-center items-center'>

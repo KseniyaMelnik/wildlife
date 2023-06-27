@@ -12,15 +12,11 @@ export async function GET (req: Request) {
 
   try {
     await connectToDB()
+      console.log(req.url);
 
     const posts = await Post.find({})
 
-    return new Response(JSON.stringify(posts), { status: 200
-     /* headers: {
-        'content-type': 'application/json',
-        'cache-control': 'no-cache, no-store, max-age=0, must-revalidate',
-      }*/
-    })
+    return new Response(JSON.stringify(posts), { status: 200})
 } catch (error) {
     return new Response("Failed to fetch all posts", { status: 500 })
 }
